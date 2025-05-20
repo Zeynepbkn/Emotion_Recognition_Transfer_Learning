@@ -89,7 +89,7 @@ Additionally, an app.py script is included. This script is specifically structur
 
 ## Public Sharing
 
-With app.py, you can share the link through Hugging Face Spaces. So that everyone can see this web app on their computers.
+With `app.py`, you can share the link through Hugging Face Spaces. So that everyone can see this web app on their computers. In order to deploy the model through Hugging Face Spaces, you should use `READMEFORHUGGINGFACE.md`, `requirementsforHuggingFace.txt`, and the `emotion_resnet34.safetensors` that would be created when you run the `create_model.py`.
 
 ## License
 

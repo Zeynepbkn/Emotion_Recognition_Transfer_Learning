@@ -197,17 +197,11 @@ custom_css = """
 
 # Create Gradio interface with a professional look
 def create_interface():
-    # Get sample images
     sample_images = get_sample_images()
-    
     with gr.Blocks(title="Emotion Recognition", theme=gr.themes.Soft(), css=custom_css) as app:
-        # Header
         with gr.Row(elem_classes="gradio-header"):
-            gr.Markdown("# Facial Emotion Recognition")
-        
-        gr.Markdown("### Upload an image or use your webcam to analyze facial emotions")
-        
-        # Main content
+            gr.Markdown("# Facial Emotion Recognition Application")
+        gr.Markdown("### Upload an image or use your webcam to analyze your facial emotion.")
         with gr.Row():
             with gr.Column(scale=1):
                 input_image = gr.Image(
@@ -217,13 +211,11 @@ def create_interface():
                     height=350,
                     elem_classes="emotion-container"
                 )
-                
                 predict_btn = gr.Button(
-                    "Analyze Emotion", 
+                    "Analyze Emotion",
                     variant="primary",
                     elem_classes="primary-button"
                 )
-                
             with gr.Column(scale=1, elem_classes="emotion-container"):
                 with gr.Group(elem_classes="prediction-box"):
                     output_emotion = gr.Textbox(
@@ -233,11 +225,8 @@ def create_interface():
                     output_confidence = gr.Label(
                         label="Confidence Levels"
                     )
-        
-        # Example images section
         with gr.Row():
-            gr.Markdown("### Example Images")
-        
+            gr.Markdown("### Sample Images")
         if sample_images:
             gr.Examples(
                 examples=sample_images,
@@ -246,45 +235,46 @@ def create_interface():
             )
         else:
             gr.Markdown(
-                """⚠️ No sample images found. Please add images to the 'sample_images' directory:
-                - sample1.jpg (Happy)
-                - sample2.jpg (Sad)
-                - sample3.jpg (Angry)
-                - sample4.jpg (Surprise)
-                - sample5.jpg (Neutral)
-                """
+                """⚠️ No sample images found. Please add sample images to the 'sample_images' directory:
+- sample1.jpg (Happy)
+- sample2.jpg (Sad)
+- sample3.jpg (Angry)
+- sample4.jpg (Surprised)
+- sample5.jpg (Neutral)
+"""
             )
-        
-        # Footer
         with gr.Row(elem_classes="footer"):
-            gr.Markdown("Developed using Deep Learning with Transfer Learning | Emotion Dataset")
-            
-        # Set up event handlers
+            gr.Markdown("Developed with Deep Learning and Transfer Learning | Emotion Recognition Dataset")
         predict_btn.click(
-            fn=capture_and_predict, 
-            inputs=input_image,
+            fn=predict_emotion,
+            inputs=[input_image],
             outputs=[output_emotion, output_confidence]
         )
-        
-        # Set up automatic prediction on input change
         input_image.change(
-            fn=lambda: (None, None),  # Reset the outputs when image changes
+            fn=lambda: (None, None),
             inputs=None,
             outputs=[output_emotion, output_confidence]
         )
-        
-        # Add instructions for better user experience
-        gr.Markdown(
-            """
-            ### How to use:
-            1. Upload an image or take a photo with your webcam
-            2. Click the 'Analyze Emotion' button
-            3. View the predicted emotion and confidence levels
-            
-            You can also try the sample images below by clicking on them.
-            """
-        )
-    
+        with gr.Row(elem_classes="accordion-section"):
+            with gr.Accordion("How to Use This Application", open=True): # Initially open
+                gr.Markdown(
+                    """
+                    Welcome! Here's a quick guide:
+                    **1. Providing an Image:**
+                    You have three ways to add a photo to the **"Image Input"** area:
+                    *   **From your computer:** Click the **upload icon** (the first icon, an arrow pointing up) located just below the image preview area. This will open your file browser, allowing you to select a photo from your laptop or computer.
+                    *   **Using your webcam:** **Click the middle camera icon** (the one with nested circles) below the image preview area. Your webcam will activate and show a live feed within the "Image Input" box. To take a picture, click the new camera icon that appears on your live webcam feed.
+                    *   **From an internet URL:** Find an image online and copy its URL. Then, click the clipboard icon (the last icon) below the image preview area. The application will attempt to load the image from the copied URL.
+                    **2. Analyzing the Emotion:**
+                    Once your chosen image is loaded in the "Image Input" section, click the green **"Analyze Emotion"** button.
+                    **3. Viewing the Results:**
+                    After a moment, the application will display:
+                    *   The **"Predicted Emotion"** in the text box.
+                    *   The **"Confidence Levels"** for various emotions below it.
+                    These results appear on the right-hand side.
+                    *Tip: You can also click on any of the "Sample Images" (if available) to automatically analyze them!*
+                    """
+                )
     return app
 
 # Main application

@@ -257,7 +257,7 @@ def create_interface():
         
         # Footer
         with gr.Row(elem_classes="footer"):
-            gr.Markdown("Developed using Deep Learning with Transfer Learning | OAHEGA Dataset")
+            gr.Markdown("Developed using Deep Learning with Transfer Learning | Emotion Dataset")
             
         # Set up event handlers
         predict_btn.click(

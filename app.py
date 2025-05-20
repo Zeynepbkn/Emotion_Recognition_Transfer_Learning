@@ -168,7 +168,7 @@ def predict_emotion(image, progress=gr.Progress(track_tqdm=True)):
         return f"An error occurred: {str(e)}", None
 
 def get_sample_images():
-    sample_dir = "sample"
+    sample_dir = "sample_images"
     sample_images = []
     if os.path.exists(sample_dir):
         for file in os.listdir(sample_dir):

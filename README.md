@@ -1,6 +1,6 @@
 # Emotion Recognition Application
 
-This application uses deep learning model that is trained with transfer learning to recognize facial emotions from images. It can identify five different emotions: Angry, Happy, Neutral, Sad, and Surprise.
+This application uses a deep learning model that is trained with transfer learning to recognize facial emotions from images. It can identify five different emotions: Angry, Happy, Neutral, Sad, and Surprise.
 
 ## Features
 
@@ -9,7 +9,6 @@ This application uses deep learning model that is trained with transfer learning
 - Confidence levels for each emotion class
 - Example images for testing
 - User-friendly interface powered by Gradio
-- Live sharing feature to share your application with others
 
 ## Requirements
 
@@ -83,12 +82,14 @@ Sample images are available in the `sample_images` directory.
 ## Model
 
 The application uses a transfer learning approach with a pre-trained model optimized for emotion recognition. The model was trained using transfer learning techniques to leverage knowledge from existing models and adapt it to the emotion recognition task. The trained model is stored in `optimized_emotion_classifier.pkl`.
+The 'create_model.py' script is provided as a utility. Its purpose is to convert the model from the potentially unsafe .pkl (pickle) format to the .safetensors format. Pickle files can carry security risks (e.g., arbitrary code execution), whereas safetensors is a safer and often more efficient format for storing model weights. This script facilitates this conversion if needed.
+## Application Scripts
+The primary script for running the application locally is gradioApp.py, as mentioned in the "Usage" section.
+Additionally, an app.py script is included. This script is specifically structured to serve the Gradio interface in environments like Hugging Face Spaces, providing a web-accessible UI for the emotion recognition model.
 
 ## Public Sharing
 
-The application now includes a live sharing feature that generates a temporary public URL when you run the app. This URL is valid for 72 hours by default and can be shared with anyone, allowing them to access your application without having to install anything.
-
-To enable this feature, the application is configured with `share=True` in the Gradio launch parameters.
+With app.py, you can share the link through Hugging Face Spaces. So that everyone can see this web app on their computers.
 
 ## License
 
